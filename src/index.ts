@@ -1,20 +1,17 @@
 #!/usr/bin/env node
-import fs from "fs";
-import path from "path";
+import inquirer from "inquirer";
+import getWord from "./get-word";
 
-const getWord = (): string => {
-  const wordsPath = path.resolve("src/dict.txt");
+enum LetterColor {
+  Black = "black",
+  Yellow = "yellow",
+  Green = "green",
+}
 
-  try {
-    const data = fs.readFileSync(wordsPath, "utf8");
-    const wordsArray = data.toString().split("\n");
-    const randomWord = wordsArray[Math.floor(Math.random() * wordsArray.length)];
-    return randomWord;
-  } catch (e) {
-    // if error getting word make player guess the word 'error'
-    return "error";
-  }
-};
+interface LetterGuess {
+  letter: string;
+  color: LetterColor;
+}
 
 const wordleGuess = (guessWord: string, solutionWord: string) => {
   if (solutionWord.length !== 5 || guessWord.length !== 5) {
@@ -25,27 +22,85 @@ const wordleGuess = (guessWord: string, solutionWord: string) => {
   const guessLetters = [...guessWord];
   const solutionLetters = [...solutionWord];
   const unusedLetters = [...solutionWord];
-  let answer = ["⬛", "⬛", "⬛", "⬛", "⬛"];
+  const guessArr: LetterGuess[] = [];
 
-  for (let i = 0; i < solutionLetters.length; i++) {
+  guessLetters.forEach((letter) => {
+    guessArr.push({
+      letter,
+      color: LetterColor.Black,
+    });
+  });
+
+  solutionLetters.forEach((letter, i) => {
     if (solutionLetters[i] === guessLetters[i]) {
-      answer[i] = "🟩";
+      guessArr[i] = {
+        letter,
+        color: LetterColor.Green,
+      };
+
       delete unusedLetters[i];
     }
-  }
+  });
 
-  for (let i = 0; i < solutionLetters.length; i++) {
-    if (answer[i] !== "🟩" && unusedLetters.includes(guessLetters[i])) {
-      answer[i] = "🟨";
+  solutionLetters.forEach((letter, i) => {
+    const isNotCorrectLetter = guessArr[i].color !== LetterColor.Green;
+    const isInSolution = unusedLetters.includes(guessLetters[i]);
+
+    if (isNotCorrectLetter && isInSolution) {
+      guessArr[i] = {
+        letter: guessLetters[i],
+        color: LetterColor.Yellow,
+      };
+
       // delete used yellow letters
       delete unusedLetters[unusedLetters.indexOf(guessLetters[i])];
     }
-  }
+  });
 
-  console.log(solutionWord);
-  console.log(answer.join(""));
+  // TODO
+  // computeGuess(guessArr)
+  console.log(guessArr);
 };
 
-let solutionWord = getWord();
+wordleGuess("annal", "banal");
+wordleGuess("union", "banal");
+wordleGuess("alloy", "banal");
+wordleGuess("banal", "banal");
 
-wordleGuess("annal", solutionWord);
+// let solutionWord = getWord();
+
+// const guess1 = async () => {
+//   const answer = await inquirer.prompt({
+//     name: "guess_1",
+//     type: "input",
+//   });
+
+//   return wordleGuess(answer.guess_1, solutionWord);
+// };
+
+// const guess2 = async () => {
+//   const answer = await inquirer.prompt({
+//     name: "guess_2",
+//     type: "input",
+//   });
+
+//   return wordleGuess(answer.guess_2, solutionWord);
+// };
+
+// const guess3 = async () => {
+//   const answer = await inquirer.prompt({
+//     name: "guess_3",
+//     type: "input",
+//   });
+
+//   return wordleGuess(answer.guess_3, solutionWord);
+// };
+
+// const startGame = async () => {
+//   console.clear();
+//   await guess1();
+//   await guess2();
+//   await guess3();
+// };
+
+// startGame();
