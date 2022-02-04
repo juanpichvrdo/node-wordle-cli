@@ -1,23 +1,16 @@
 #!/usr/bin/env node
 import inquirer from "inquirer";
+
 import getWord from "./get-word";
+import computeGuess from "./compute-guess";
 
-enum LetterColor {
-  Black = "black",
-  Yellow = "yellow",
-  Green = "green",
-}
-
-interface LetterGuess {
-  letter: string;
-  color: LetterColor;
-}
+import { LetterColor, LetterGuess } from "./types";
 
 const wordleGuess = (guessWord: string, solutionWord: string) => {
-  if (solutionWord.length !== 5 || guessWord.length !== 5) {
-    console.log("Word must be 5 letters");
-    return;
-  }
+  // if (solutionWord.length !== 5 || guessWord.length !== 5) {
+  //   console.log("Word must be 5 letters");
+  //   return;
+  // }
 
   const guessLetters = [...guessWord];
   const solutionLetters = [...solutionWord];
@@ -57,50 +50,45 @@ const wordleGuess = (guessWord: string, solutionWord: string) => {
     }
   });
 
-  // TODO
-  // computeGuess(guessArr)
-  console.log(guessArr);
+  computeGuess(guessArr);
 };
 
-wordleGuess("annal", "banal");
-wordleGuess("union", "banal");
-wordleGuess("alloy", "banal");
-wordleGuess("banal", "banal");
+// wordleGuess("annal", "banal");
+// wordleGuess("union", "banal");
+// wordleGuess("alloy", "banal");
+// wordleGuess("banal", "banal");
 
-// let solutionWord = getWord();
+const solutionWord = getWord();
+let tries = 0;
 
-// const guess1 = async () => {
-//   const answer = await inquirer.prompt({
-//     name: "guess_1",
-//     type: "input",
-//   });
+const guess = async () => {
+  const answer = await inquirer.prompt({
+    name: `guess_${tries}`,
+    type: "input",
+    // TODO: Fix validate function not allowing to delete input
+    validate: async (input, answer) => {
+      console.log(input, answer);
 
-//   return wordleGuess(answer.guess_1, solutionWord);
-// };
+      // TODO: validate is a valid word here
+      if (input.length !== 5) {
+        return "Word must be 5 letters";
+      }
+      tries++;
+      return input;
+    },
+  });
 
-// const guess2 = async () => {
-//   const answer = await inquirer.prompt({
-//     name: "guess_2",
-//     type: "input",
-//   });
+  wordleGuess(answer[`guess_${tries}`], solutionWord);
 
-//   return wordleGuess(answer.guess_2, solutionWord);
-// };
+  if (tries < 6) {
+    guess();
+  }
+};
 
-// const guess3 = async () => {
-//   const answer = await inquirer.prompt({
-//     name: "guess_3",
-//     type: "input",
-//   });
+const startGame = async () => {
+  console.clear();
+  console.log(solutionWord);
+  guess();
+};
 
-//   return wordleGuess(answer.guess_3, solutionWord);
-// };
-
-// const startGame = async () => {
-//   console.clear();
-//   await guess1();
-//   await guess2();
-//   await guess3();
-// };
-
-// startGame();
+startGame();
