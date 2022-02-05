@@ -3,7 +3,7 @@ import { LetterGuess } from "./types";
 
 const { bgBlack, bgYellow, bgGreen } = chalk;
 
-const chalkFunctions = {
+const chalkColors = {
   black: bgBlack,
   yellow: bgYellow,
   green: bgGreen,
@@ -12,7 +12,7 @@ const chalkFunctions = {
 export default function computeGuess(guessArr: LetterGuess[]) {
   const coloredArry = guessArr
     .map((letter) => {
-      return chalkFunctions[letter.color](letter.letter);
+      return chalkColors[letter.color](letter.letter);
     })
     .join("");
 
