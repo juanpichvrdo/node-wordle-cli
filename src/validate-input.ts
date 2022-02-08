@@ -9,5 +9,7 @@ export default function validateInput(input: string): boolean {
     return false;
   }
 
+  // TODO: Check if word is a valid english word
+
   return true;
 }

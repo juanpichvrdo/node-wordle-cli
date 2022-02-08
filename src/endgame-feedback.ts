@@ -13,7 +13,6 @@ export default async function endgameFeedback(
     const usePlural = guessNumber > 1;
     console.log(`Guessed in ${guessNumber} ${usePlural ? "tries." : "try!"}`);
 
-    // TODO: ADD play again
     const shouldPlayAgain = await askPlayAgain();
 
     if (shouldPlayAgain) {

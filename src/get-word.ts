@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 
 export default function getWord(): string {
+  // TODO: get new words dict
   const wordsPath = path.resolve("src/dict.txt");
 
   try {
