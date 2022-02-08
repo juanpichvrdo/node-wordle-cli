@@ -1,4 +1,4 @@
-const chalk = require("chalk");
+import chalk from "chalk";
 import inquirer from "inquirer";
 import { startGame } from "./index";
 

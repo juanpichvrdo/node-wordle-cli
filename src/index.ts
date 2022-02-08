@@ -1,17 +1,14 @@
 #!/usr/bin/env node
 import inquirer from "inquirer";
 
-import getWord from "./get-word";
-import computeGuess from "./compute-guess";
-
 import { LetterColor, LetterGuess } from "./types";
 
-const wordleGuess = (guessWord: string, solutionWord: string) => {
-  // if (solutionWord.length !== 5 || guessWord.length !== 5) {
-  //   console.log("Word must be 5 letters");
-  //   return;
-  // }
+import getWord from "./get-word";
+import computeGuess from "./compute-guess";
+import validateInput from "./validate-input";
+import endgameFeedback from "./endgame-feedback";
 
+const wordleGuess = (guessWord: string, solutionWord: string): LetterGuess[] => {
   const guessLetters = [...guessWord];
   const solutionLetters = [...solutionWord];
   const unusedLetters = [...solutionWord];
@@ -50,45 +47,43 @@ const wordleGuess = (guessWord: string, solutionWord: string) => {
     }
   });
 
-  computeGuess(guessArr);
+  return guessArr;
 };
 
-// wordleGuess("annal", "banal");
-// wordleGuess("union", "banal");
-// wordleGuess("alloy", "banal");
-// wordleGuess("banal", "banal");
-
-const solutionWord = getWord();
-let tries = 0;
-
-const guess = async () => {
+const guess = async (solutionWord: string, guessNumber: number) => {
   const answer = await inquirer.prompt({
-    name: `guess_${tries}`,
+    name: `guess_${guessNumber}`,
     type: "input",
-    // TODO: Fix validate function not allowing to delete input
-    validate: async (input, answer) => {
-      console.log(input, answer);
-
-      // TODO: validate is a valid word here
-      if (input.length !== 5) {
-        return "Word must be 5 letters";
-      }
-      tries++;
-      return input;
-    },
+    message: `Guess ${guessNumber}/6`,
   });
 
-  wordleGuess(answer[`guess_${tries}`], solutionWord);
+  const inputGuess = answer[`guess_${guessNumber}`].toLowerCase();
 
-  if (tries < 6) {
-    guess();
+  const isValid = validateInput(inputGuess);
+
+  if (isValid) {
+    const guessData = wordleGuess(inputGuess, solutionWord);
+
+    const isGuessCorrect = computeGuess(guessData);
+    await endgameFeedback(isGuessCorrect, solutionWord, guessNumber);
+
+    if (guessNumber < 6) {
+      guessNumber++;
+      guess(solutionWord, guessNumber);
+    }
+  } else {
+    guess(solutionWord, guessNumber);
   }
 };
 
-const startGame = async () => {
+export const startGame = async () => {
   console.clear();
+
+  const solutionWord = getWord();
+  const guessNumber = 1;
   console.log(solutionWord);
-  guess();
+
+  await guess(solutionWord, guessNumber);
 };
 
 startGame();

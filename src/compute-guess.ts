@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { LetterGuess } from "./types";
+import { LetterColor, LetterGuess } from "./types";
 
 const { bgBlack, bgYellow, bgGreen } = chalk;
 
@@ -10,11 +10,13 @@ const chalkColors = {
 };
 
 export default function computeGuess(guessArr: LetterGuess[]) {
-  const coloredArry = guessArr
-    .map((letter) => {
-      return chalkColors[letter.color](letter.letter);
-    })
+  const coloredGuessText = guessArr
+    .map((letter) => chalkColors[letter.color](letter.letter))
     .join("");
 
-  console.log(coloredArry);
+  console.log(coloredGuessText);
+
+  const isGuessCorrect = guessArr.every((letter) => letter.color === LetterColor.Green);
+
+  return isGuessCorrect;
 }
