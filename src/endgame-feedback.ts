@@ -12,19 +12,13 @@ export default async function endgameFeedback(
     console.log(`${chalk.reset(solutionWord)} was the correct word!`);
     const usePlural = guessNumber > 1;
     console.log(`Guessed in ${guessNumber} ${usePlural ? "tries." : "try!"}`);
-
-    const shouldPlayAgain = await askPlayAgain();
-
-    if (shouldPlayAgain) {
-      await startGame();
-    } else {
-      console.log("bye!");
-    }
-
-    process.exit();
   } else if (guessNumber === 6) {
     console.log(`Sorry, the correct word was '${solutionWord}'`);
+  }
 
+  const gameEnded = isGuessCorrect || guessNumber === 6;
+
+  if (gameEnded) {
     const shouldPlayAgain = await askPlayAgain();
 
     if (shouldPlayAgain) {

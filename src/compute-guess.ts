@@ -1,22 +1,43 @@
-import chalk from "chalk";
 import { LetterColor, LetterGuess } from "./types";
 
-const { bgBlack, bgYellow, bgGreen } = chalk;
+export default function computeGuess(guessWord: string, solutionWord: string): LetterGuess[] {
+  const guessLetters = [...guessWord];
+  const solutionLetters = [...solutionWord];
+  const unusedLetters = [...solutionWord];
+  const guessArr: LetterGuess[] = [];
 
-const chalkColors = {
-  black: bgBlack,
-  yellow: bgYellow,
-  green: bgGreen,
-};
+  guessLetters.forEach((letter) => {
+    guessArr.push({
+      letter,
+      color: LetterColor.Black,
+    });
+  });
 
-export default function computeGuess(guessArr: LetterGuess[]) {
-  const coloredGuessText = guessArr
-    .map((letter) => chalkColors[letter.color](letter.letter))
-    .join("");
+  solutionLetters.forEach((letter, i) => {
+    if (solutionLetters[i] === guessLetters[i]) {
+      guessArr[i] = {
+        letter,
+        color: LetterColor.Green,
+      };
 
-  console.log(coloredGuessText);
+      delete unusedLetters[i];
+    }
+  });
 
-  const isGuessCorrect = guessArr.every((letter) => letter.color === LetterColor.Green);
+  solutionLetters.forEach((letter, i) => {
+    const isNotCorrectLetter = guessArr[i].color !== LetterColor.Green;
+    const isInSolution = unusedLetters.includes(guessLetters[i]);
 
-  return isGuessCorrect;
+    if (isNotCorrectLetter && isInSolution) {
+      guessArr[i] = {
+        letter: guessLetters[i],
+        color: LetterColor.Yellow,
+      };
+
+      // delete used yellow letters
+      delete unusedLetters[unusedLetters.indexOf(guessLetters[i])];
+    }
+  });
+
+  return guessArr;
 }
