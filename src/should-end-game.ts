@@ -3,7 +3,7 @@ import inquirer from "inquirer";
 import { NUMBER_OF_GUESSES } from "./constants";
 import { startGame } from "./index";
 
-export default async function endgameFeedback(
+export default async function shouldEndGame(
   isGuessCorrect: boolean,
   solutionWord: string,
   guessNumber: number
