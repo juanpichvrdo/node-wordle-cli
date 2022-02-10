@@ -4,12 +4,13 @@ import computeGuess from "./compute-guess";
 import colorGuess from "./color-guess";
 import validateInput from "./validate-input";
 import endgameFeedback from "./endgame-feedback";
+import { NUMBER_OF_GUESSES } from "./constants";
 
 export default async function guess(solutionWord: string, guessNumber: number) {
   const answer = await inquirer.prompt({
     name: `guess_${guessNumber}`,
     type: "input",
-    message: `Guess ${guessNumber}/6`,
+    message: `Guess ${guessNumber}/${NUMBER_OF_GUESSES}`,
   });
 
   const inputGuess = answer[`guess_${guessNumber}`].toLowerCase();
@@ -22,7 +23,7 @@ export default async function guess(solutionWord: string, guessNumber: number) {
     const isGuessCorrect = colorGuess(guessData);
     await endgameFeedback(isGuessCorrect, solutionWord, guessNumber);
 
-    if (guessNumber < 6) {
+    if (guessNumber < NUMBER_OF_GUESSES) {
       guessNumber++;
       guess(solutionWord, guessNumber);
     }
