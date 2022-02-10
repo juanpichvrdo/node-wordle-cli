@@ -1,33 +1,16 @@
 #!/usr/bin/env node
 
-const wordleGuess = (guess: string, solutionWord: string) => {
-  if (solutionWord.length !== 5 || guess.length !== 5) {
-    console.log("Word must be 5 letters");
-    return;
-  }
+import getWord from "./get-word";
+import guess from "./guess";
 
-  let result = "";
+export const startGame = async () => {
+  console.clear();
 
-  for (let i = 0; i < guess.length; i++) {
-    const letter = guess[i];
-    let emoji = "⬛";
+  const solutionWord = getWord();
+  const guessNumber = 1;
+  console.log(solutionWord);
 
-    if (solutionWord.includes(letter)) {
-      emoji = "🟨";
-
-      if (letter === solutionWord[i]) {
-        emoji = "🟩";
-      }
-    }
-
-    result = result.concat(emoji);
-  }
-
-  console.log(result);
+  await guess(solutionWord, guessNumber);
 };
 
-let solutionWord = "parks";
-
-wordleGuess("ppple", solutionWord);
-wordleGuess("lodge", solutionWord);
-wordleGuess("fudge", solutionWord);
+startGame();
