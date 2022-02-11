@@ -1,1 +1,1 @@
-export const NUMBER_OF_GUESSES = 6;
+export const NUMBER_OF_TRIES = 6;

@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import inquirer from "inquirer";
-import { NUMBER_OF_GUESSES } from "./constants";
+import { NUMBER_OF_TRIES } from "./constants";
 import { startGame } from "./index";
 
 export default async function shouldEndGame(
@@ -8,7 +8,7 @@ export default async function shouldEndGame(
   solutionWord: string,
   guessNumber: number
 ) {
-  const outOfGuesses = guessNumber === NUMBER_OF_GUESSES;
+  const outOfGuesses = guessNumber === NUMBER_OF_TRIES;
 
   if (isGuessCorrect) {
     // Won game
