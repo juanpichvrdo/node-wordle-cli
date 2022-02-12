@@ -1,7 +1,8 @@
 export enum LetterColor {
-  Black = "black",
+  Gray = "gray",
   Yellow = "yellow",
   Green = "green",
+  White = "white",
 }
 
 export interface LetterGuess {
