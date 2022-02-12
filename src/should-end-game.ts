@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import inquirer from "inquirer";
-import { NUMBER_OF_TRIES } from "./constants";
+import { NUMBER_OF_TRIES } from "./helpers/constants";
 import { startGame } from "./index";
 
 export default async function shouldEndGame(
