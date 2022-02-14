@@ -1,4 +1,4 @@
-import { LetterColor, LetterGuess } from "./types";
+import { LetterColor, LetterGuess } from "./helpers/types";
 
 export default function computeGuess(guessWord: string, solutionWord: string): LetterGuess[] {
   const guessLetters = [...guessWord];
@@ -9,7 +9,7 @@ export default function computeGuess(guessWord: string, solutionWord: string): L
   guessLetters.forEach((letter) => {
     guessArr.push({
       letter,
-      color: LetterColor.Black,
+      color: LetterColor.Gray,
     });
   });
 

@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import inquirer from "inquirer";
-import { NUMBER_OF_GUESSES } from "./constants";
+import { NUMBER_OF_TRIES } from "./helpers/constants";
 import { startGame } from "./index";
 
 export default async function shouldEndGame(
@@ -8,20 +8,20 @@ export default async function shouldEndGame(
   solutionWord: string,
   guessNumber: number
 ) {
-  const outOfGuesses = guessNumber === NUMBER_OF_GUESSES;
+  const outOfGuesses = guessNumber === NUMBER_OF_TRIES;
 
   if (isGuessCorrect) {
     // Won game
-    console.log(`${chalk.reset(solutionWord)} was the correct word!`);
+    console.log(`${chalk.green(solutionWord)} was the correct word!`);
     const usePlural = guessNumber > 1;
     console.log(`Guessed in ${guessNumber} ${usePlural ? "tries." : "try!"}`);
   } else if (outOfGuesses) {
     console.log(`Sorry, the correct word was '${solutionWord}'`);
   }
 
-  const gameEnded = isGuessCorrect || outOfGuesses;
+  const gameOver = isGuessCorrect || outOfGuesses;
 
-  if (gameEnded) {
+  if (gameOver) {
     const shouldPlayAgain = await askToPlayAgain();
 
     if (shouldPlayAgain) {
