@@ -1,30 +1,46 @@
 #!/usr/bin/env node
 import chalk from "chalk";
+
+import showInstructions from "./show-instructions";
 import getWord from "./get-word";
 import guess from "./guess";
 
 let firstGame = true;
+let solutionWord: string;
 
-export const startGame = async () => {
+export default async function startGame() {
   console.clear();
 
   if (firstGame) {
-    console.log(
-      chalk.cyan(`
-      Guess the word in six tries!
-      Each guess must be a valid five-letter word.
-      After each guess, the color of the word will 
-      change to show how close your guess was to the word
-    `)
-    );
+    console.log(showInstructions());
+
     firstGame = false;
   }
 
-  const solutionWord = getWord().toUpperCase();
-  const guessNumber = 1;
-  console.log(solutionWord);
+  solutionWord = getWord().toUpperCase();
 
+  // onExit(solutionWord);
+
+  const guessNumber = 1;
   await guess(solutionWord, guessNumber);
-};
+}
 
 startGame();
+
+const { cyan, white } = chalk;
+
+const exitModes = [`exit`, `SIGINT`, `SIGUSR1`, `SIGUSR2`, `SIGTERM`];
+
+exitModes.forEach((eventType) => {
+  process.on(eventType, () => {
+    console.log(`
+    ${cyan(`The solution was ${white(solutionWord)}.`)}
+
+
+
+    ${cyan.underline("https://github.com/juanpichvrdo/wordle-cli")}
+    
+    ${white("Thanks for playing!")}
+  `);
+  });
+});
