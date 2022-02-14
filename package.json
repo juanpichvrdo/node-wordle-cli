@@ -1,5 +1,5 @@
 {
-  "name": "wordle-cli",
+  "name": "node-wordle-cli",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,8 +9,9 @@
     "start": "npm run build && node --trace-warnings build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": "./build/index.js",
   "keywords": [],
-  "author": "",
+  "author": "Juan Daniel",
   "license": "ISC",
   "devDependencies": {
     "@types/inquirer": "^8.2.0",
