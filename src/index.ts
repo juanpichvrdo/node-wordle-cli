@@ -7,7 +7,7 @@ export const startGame = async () => {
 
   const solutionWord = getWord().toUpperCase();
   const guessNumber = 1;
-  console.log(solutionWord);
+  // console.log(solutionWord);
 
   await guess(solutionWord, guessNumber);
 };

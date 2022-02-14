@@ -2,7 +2,7 @@ import inquirer from "inquirer";
 
 import validateInput from "./validate-input";
 import computeGuess from "./compute-guess";
-import colorGuess from "./color-text";
+import colorText from "./color-text";
 import handleAlphabet from "./handle-alphabet";
 import shouldEndGame from "./should-end-game";
 import { NUMBER_OF_TRIES } from "./helpers/constants";
@@ -22,7 +22,8 @@ export default async function guess(solutionWord: string, guessNumber: number) {
   if (isValid) {
     const guessData = computeGuess(inputGuess, solutionWord);
 
-    const coloredGuess = colorGuess(guessData).join("");
+    const coloredGuess = colorText(guessData).join("");
+
     console.log(coloredGuess);
 
     handleAlphabet(guessData);

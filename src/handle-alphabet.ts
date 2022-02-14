@@ -19,6 +19,5 @@ export default function handleAlphabet(usedLetters: LetterGuess[]) {
 
   const coloredAlphabet = colorGuess(alphabet).join(" ");
 
-  // TODO: only show one alphabet delete older if new one logs to the screen
   console.log(coloredAlphabet);
 }
