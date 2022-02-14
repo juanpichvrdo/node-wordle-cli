@@ -22,15 +22,15 @@ export default async function guess(solutionWord: string, guessNumber: number) {
   if (isValid) {
     const guessData = computeGuess(inputGuess, solutionWord);
 
-    const coloredGuess = colorText(guessData).join("");
-
+    const coloredGuess = colorText(guessData);
     console.log(coloredGuess);
 
     const isGuessCorrect = guessData.every(({ letter, color }) => color === LetterColor.Green);
 
     await shouldEndGame(isGuessCorrect, solutionWord, guessNumber);
 
-    handleAlphabet(guessData);
+    const coloredAlphabet = handleAlphabet(guessData);
+    console.log(coloredAlphabet);
 
     if (guessNumber < NUMBER_OF_TRIES) {
       guessNumber++;

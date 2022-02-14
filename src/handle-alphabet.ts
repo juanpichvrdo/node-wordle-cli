@@ -1,6 +1,6 @@
 import { LetterColor, LetterGuess } from "./helpers/types";
 import alphabet from "./helpers/alphabet";
-import colorGuess from "./color-text";
+import colorText from "./color-text";
 
 export default function handleAlphabet(usedLetters: LetterGuess[]) {
   const usedLettersWithoutDuplicates = usedLetters.filter(({ letter }, index) => {
@@ -17,7 +17,5 @@ export default function handleAlphabet(usedLetters: LetterGuess[]) {
     }
   });
 
-  const coloredAlphabet = colorGuess(alphabet, true).join(" ");
-
-  console.log(coloredAlphabet);
+  return colorText(alphabet, true);
 }
