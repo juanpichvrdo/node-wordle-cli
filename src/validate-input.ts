@@ -12,12 +12,12 @@ export default function validateInput(input: string): boolean {
     return false;
   }
 
-  if (isNotValidWord(input)) {
+  const isNotValidWord = !allWords.includes(input.toLowerCase());
+
+  if (isNotValidWord) {
     console.log(chalk.yellowBright("Must be a valid english word."));
     return false;
   }
 
   return true;
 }
-
-export const isNotValidWord = (word: string): boolean => !allWords.includes(word.toLowerCase());

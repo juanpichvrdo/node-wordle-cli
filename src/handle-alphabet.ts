@@ -1,8 +1,8 @@
 import { LetterColor, LetterGuess } from "./helpers/types";
 import alphabet from "./helpers/alphabet";
-import colorGuess from "./color-text";
+import colorText from "./color-text";
 
-export default function handleAlphabet(usedLetters: LetterGuess[]) {
+export default function handleAlphabet(usedLetters: LetterGuess[]): string {
   const usedLettersWithoutDuplicates = usedLetters.filter(({ letter }, index) => {
     return (
       index === usedLetters.findIndex(({ letter: letterOcurrence }) => letter === letterOcurrence)
@@ -17,8 +17,5 @@ export default function handleAlphabet(usedLetters: LetterGuess[]) {
     }
   });
 
-  const coloredAlphabet = colorGuess(alphabet).join(" ");
-
-  // TODO: only show one alphabet delete older if new one logs to the screen
-  console.log(coloredAlphabet);
+  return colorText(alphabet, true);
 }
