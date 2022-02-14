@@ -4,6 +4,7 @@ import chalk from "chalk";
 import showInstructions from "./show-instructions";
 import getWord from "./get-word";
 import guess from "./guess";
+import { REPOSITORY_LINK } from "./helpers/constants";
 
 let firstGame = true;
 let solutionWord: string;
@@ -19,9 +20,8 @@ export default async function startGame() {
 
   solutionWord = getWord().toUpperCase();
 
-  // onExit(solutionWord);
-
   const guessNumber = 1;
+
   await guess(solutionWord, guessNumber);
 }
 
@@ -38,7 +38,7 @@ exitModes.forEach((eventType) => {
 
 
 
-    ${cyan.underline("https://github.com/juanpichvrdo/wordle-cli")}
+    ${cyan.underline(REPOSITORY_LINK)}
     
     ${white("Thanks for playing!")}
   `);

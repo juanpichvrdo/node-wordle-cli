@@ -37,7 +37,7 @@ export default async function guess(solutionWord: string, guessNumber: number) {
       const shouldPlayAgain = await askToPlayAgain();
 
       if (shouldPlayAgain) {
-        // Reset alphabet
+        // Reset alphabet colors
         alphabet.forEach((letter) => (letter.color = LetterColor.White));
 
         await startGame();
