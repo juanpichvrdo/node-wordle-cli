@@ -27,25 +27,15 @@ export default async function guess(solutionWord: string, guessNumber: number) {
 
     handleAlphabet(guessData);
 
-    if (guessNumber > 1) {
-      deletePreviousAbecedary();
-    }
-
     const isGuessCorrect = guessData.every(({ letter, color }) => color === LetterColor.Green);
 
     await shouldEndGame(isGuessCorrect, solutionWord, guessNumber);
 
     if (guessNumber < NUMBER_OF_TRIES) {
       guessNumber++;
-      guess(solutionWord, guessNumber);
+      await guess(solutionWord, guessNumber);
     }
   } else {
-    guess(solutionWord, guessNumber);
+    await guess(solutionWord, guessNumber);
   }
 }
-
-const deletePreviousAbecedary = () => {
-  process.stdout.moveCursor(0, -4);
-  process.stdout.clearLine(1);
-  process.stdout.moveCursor(0, 4);
-};
