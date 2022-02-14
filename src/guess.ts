@@ -33,9 +33,9 @@ export default async function guess(solutionWord: string, guessNumber: number) {
 
     if (guessNumber < NUMBER_OF_TRIES) {
       guessNumber++;
-      guess(solutionWord, guessNumber);
+      await guess(solutionWord, guessNumber);
     }
   } else {
-    guess(solutionWord, guessNumber);
+    await guess(solutionWord, guessNumber);
   }
 }
