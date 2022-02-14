@@ -26,11 +26,11 @@ export default async function guess(solutionWord: string, guessNumber: number) {
 
     console.log(coloredGuess);
 
-    handleAlphabet(guessData);
-
     const isGuessCorrect = guessData.every(({ letter, color }) => color === LetterColor.Green);
 
     await shouldEndGame(isGuessCorrect, solutionWord, guessNumber);
+
+    handleAlphabet(guessData);
 
     if (guessNumber < NUMBER_OF_TRIES) {
       guessNumber++;

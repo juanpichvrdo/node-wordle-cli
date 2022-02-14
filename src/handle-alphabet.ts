@@ -17,7 +17,7 @@ export default function handleAlphabet(usedLetters: LetterGuess[]) {
     }
   });
 
-  const coloredAlphabet = colorGuess(alphabet).join(" ");
+  const coloredAlphabet = colorGuess(alphabet, true).join(" ");
 
   console.log(coloredAlphabet);
 }
