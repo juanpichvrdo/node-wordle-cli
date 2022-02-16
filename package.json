@@ -10,7 +10,14 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": "./build/index.js",
-  "keywords": [],
+  "keywords": [
+    "wordle",
+    "words",
+    "game",
+    "node",
+    "cli",
+    "terminal"
+  ],
   "author": "Juan Daniel",
   "license": "ISC",
   "devDependencies": {
