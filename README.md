@@ -78,7 +78,7 @@ Build and then run the builded files:
 
 ## Credits
 
-Wordle is a game created by Josh Wardle([@powerlanguish](https://twitter.com/powerlanguish)).
+Wordle is a game created by Josh Wardle ([@powerlanguish](https://twitter.com/powerlanguish)).
 
 ## License
 
