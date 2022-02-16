@@ -9,7 +9,7 @@ export default function showInstructions(): string {
     Guess the word in six tries.
     Each guess must be a valid five-letter word.
     After each guess, the color of the word will 
-    change to show how close your guess was to the word
+    change to show how close your guess was to the word.
 
     ----------------------------------------------------`)}
     ${whiteBright(`
