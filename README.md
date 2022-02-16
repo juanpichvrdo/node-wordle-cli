@@ -3,6 +3,7 @@
 A version of the game [Wordle](https://www.nytimes.com/games/wordle/index.html) in your terminal.
 
 [<img src="https://img.shields.io/npm/dt/node-wordle-cli?style=flat-square">](https://www.npmjs.com/package/node-wordle-cli)
+[<img src="https://img.shields.io/npm/v/node-wordle-cli?style=flat-square">](https://www.npmjs.com/package/node-wordle-cli)
 
 ## Game
 
